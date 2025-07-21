@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: login/login.php");
     exit;
 }
 
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'total_price' => $total_price
         ];
         
-        header("Location: booking_confirmation.php");
+        header("Location: esewa_payment.php");
         exit;
 
     } catch (Exception $e) {

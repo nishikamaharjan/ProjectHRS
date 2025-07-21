@@ -3,11 +3,28 @@ session_start();
 
 // Check if user is logged in and booking data exists
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['booking_data'])) {
-    header("Location: login.php");
+    header("Location: login/login.php");
     exit;
 }
 
 $booking_data = $_SESSION['booking_data'];
+
+// Check booking status in DB
+include 'config.php';
+$booking_id = $booking_data['booking_id'];
+$stmt = $conn->prepare("SELECT status FROM bookings WHERE booking_id = ?");
+$stmt->bind_param("i", $booking_id);
+$stmt->execute();
+$stmt->bind_result($status);
+$stmt->fetch();
+$stmt->close();
+
+if ($status !== 'confirmed') {
+    // Not confirmed, redirect or show error
+    header('Location: room.php');
+    exit;
+}
+
 unset($_SESSION['booking_data']); // Clear booking data after reading
 ?>
 <!DOCTYPE html>
