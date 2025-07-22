@@ -13,8 +13,8 @@ $total_amount = $amount + $tax_amount + $service_charge + $delivery_charge;
 $booking_id = $booking['booking_id'];
 $product_code = 'EPAYTEST';
 $transaction_uuid = 'BOOKING-' . $booking_id . '-' . time();
-$success_url = 'http://localhost/ProjectHRS/esewa_callback.php?q=su';
-$failure_url = 'http://localhost/ProjectHRS/esewa_callback.php?q=fu';
+$success_url = 'http://localhost/ProjectHRS/esewa_callback.php';
+$failure_url = 'http://localhost/ProjectHRS/esewa_callback.php';
 $signed_field_names = 'total_amount,transaction_uuid,product_code';
 $secret = '8gBm/:&EnhH.1/q';
 
@@ -24,15 +24,6 @@ function generateEsewaSignature($total_amount, $transaction_uuid, $product_code,
 }
 $signature = generateEsewaSignature($total_amount, $transaction_uuid, $product_code, $secret);
 
-// Debug output
-echo "<pre>";
-echo "String to sign: total_amount=$total_amount,transaction_uuid=$transaction_uuid,product_code=$product_code\n";
-echo "Signature: $signature\n";
-echo "Form values:\n";
-echo "total_amount: $total_amount\n";
-echo "transaction_uuid: $transaction_uuid\n";
-echo "product_code: $product_code\n";
-echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
